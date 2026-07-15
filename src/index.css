@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Sora', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background: #04070d;
+  color: #e6f0ff;
+  overflow-x: hidden;
+}
+
+/* ===== Light theme: paleta "hospital" (blancos limpios + azul/teal médico) ===== */
+html:not(.dark) body {
+  background:
+    radial-gradient(60% 60% at 15% 10%, rgba(37, 99, 235, 0.06), transparent 60%),
+    radial-gradient(50% 50% at 85% 15%, rgba(13, 148, 136, 0.06), transparent 60%),
+    linear-gradient(180deg, #f7fbff 0%, #eaf3fb 100%);
+  background-attachment: fixed;
+  color: #0f2942;
+}
+
+/* Remapeo de utilidades de texto blanco para que tengan contraste en modo claro */
+html:not(.dark) .text-white {
+  color: #0f2942;
+}
+html:not(.dark) .text-white\/85 {
+  color: rgba(15, 41, 66, 0.9);
+}
+html:not(.dark) .text-white\/80 {
+  color: rgba(15, 41, 66, 0.85);
+}
+html:not(.dark) .text-white\/75 {
+  color: rgba(15, 41, 66, 0.82);
+}
+html:not(.dark) .text-white\/70 {
+  color: rgba(15, 41, 66, 0.78);
+}
+html:not(.dark) .text-white\/60 {
+  color: rgba(15, 41, 66, 0.68);
+}
+html:not(.dark) .text-white\/55 {
+  color: rgba(15, 41, 66, 0.64);
+}
+html:not(.dark) .text-white\/50 {
+  color: rgba(15, 41, 66, 0.58);
+}
+html:not(.dark) .text-white\/40 {
+  color: rgba(15, 41, 66, 0.5);
+}
+
+/* Bordes y superficies translúcidas más visibles sobre fondo claro */
+html:not(.dark) .border-white\/10,
+html:not(.dark) .border-white\/15 {
+  border-color: rgba(15, 41, 66, 0.12);
+}
+html:not(.dark) .bg-white\/5,
+html:not(.dark) .bg-white\/10 {
+  background-color: rgba(37, 99, 235, 0.06);
+}
+html:not(.dark) .bg-white\/15 {
+  background-color: rgba(37, 99, 235, 0.14);
+}
+
+/* Botón fantasma legible en claro */
+html:not(.dark) .btn-ghost {
+  color: #0f2942;
+}
+
+/* El degradado de las secciones (marquee/CTA) en claro */
+html:not(.dark) .from-\[\#04070d\] {
+  --tw-gradient-from: #eaf3fb var(--tw-gradient-from-position);
+  --tw-gradient-to: rgba(234, 243, 251, 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+html:not(.dark) .to-\[\#04070d\] {
+  --tw-gradient-to: #eaf3fb var(--tw-gradient-to-position);
+}
+
+/* Overlays oscuras de modales →claro: azul translúcido médico */
+html:not(.dark) .bg-black\/70 {
+  background-color: rgba(15, 41, 66, 0.45);
+}
+html:not(.dark) .bg-black\/60 {
+  background-color: rgba(15, 41, 66, 0.35);
+}
+
+/* High contrast mode */
+html.contrast body {
+  background: #000 !important;
+  color: #fff !important;
+}
+html.contrast .glass {
+  background: rgba(0, 0, 0, 0.85) !important;
+  border-color: #fff !important;
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/10 bg-white/5 backdrop-blur-xl;
+  }
+  .glass-strong {
+    @apply border border-white/15 bg-white/10 backdrop-blur-2xl;
+  }
+  html:not(.dark) .glass {
+    @apply border-black/5 bg-white/60;
+  }
+  html:not(.dark) .glass-strong {
+    @apply border-black/10 bg-white/80;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-bio-300 via-aurora-cyan to-aurora-violet bg-clip-text text-transparent;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 font-semibold
+           transition-all duration-300 focus-visible:outline-none focus-visible:ring-2
+           focus-visible:ring-bio-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent;
+  }
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-bio-500 to-aurora-cyan text-black shadow-glow
+           hover:shadow-[0_0_60px_rgba(56,215,149,0.5)] hover:-translate-y-0.5 active:translate-y-0;
+  }
+  .btn-ghost {
+    @apply btn glass text-white hover:bg-white/10;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #38d795, #22d3ee);
+  border-radius: 999px;
+}
+
+/* Aurora animated background */
+.aurora-bg {
+  background:
+    radial-gradient(60% 60% at 20% 20%, rgba(56, 215, 149, 0.18), transparent 60%),
+    radial-gradient(50% 50% at 80% 30%, rgba(168, 85, 247, 0.16), transparent 60%),
+    radial-gradient(60% 60% at 50% 90%, rgba(34, 211, 238, 0.16), transparent 60%);
+}
+
+/* Text scaling accessibility hooks */
+html[data-textscale='lg'] {
+  font-size: 18px;
+}
+html[data-textscale='xl'] {
+  font-size: 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
