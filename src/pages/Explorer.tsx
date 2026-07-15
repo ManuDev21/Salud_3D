@@ -66,89 +66,124 @@ export default function Explorer() {
         )}
       </AnimatePresence>
 
-      {/* Systems side panel */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-30 flex items-center pl-2 pt-16 md:pl-3">
-        <motion.div
-          initial={{ x: -40, opacity: 0 }}
-          animate={{ x: panelOpen ? 0 : -280, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 220, damping: 26 }}
-          className="pointer-events-auto relative"
-        >
-          <div className="glass-strong w-56 rounded-2xl p-3 md:w-64 md:p-4">
-            <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-white/70">
-              <Layers size={16} className="text-bio-300" /> Sistemas
-            </div>
-            <div className="flex max-h-[48vh] flex-col gap-1.5 overflow-y-auto pr-1 md:max-h-[52vh]">
-              {SYSTEMS.map((s) => {
-                const active = activeSystems.includes(s.id)
-                return (
-                  <div
-                    key={s.id}
-                    className={`group flex items-center gap-1 rounded-xl pr-1 transition-all ${
-                      active ? 'bg-white/15 font-semibold' : 'text-white/60 hover:bg-white/8'
-                    }`}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => {
-                        sfx.click()
-                        toggleSystem(s.id)
-                      }}
-                      onMouseEnter={() => sfx.hover()}
-                      className="flex flex-1 items-center gap-3 rounded-xl px-2 py-2 text-left text-sm md:px-3"
-                    >
-                      <span
-                        className="h-3 w-3 shrink-0 rounded-full transition-all"
-                        style={{
-                          background: s.color,
-                          boxShadow: active ? `0 0 10px ${s.glow}` : 'none',
-                          opacity: active ? 1 : 0.4,
-                        }}
-                      />
-                      {s.shortName}
-                    </button>
-                    <button
-                      type="button"
-                      aria-label={`Detalles de ${s.name}`}
-                      onClick={() => {
-                        sfx.select()
-                        setDetailSystem(s.id)
-                      }}
-                      className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-white/40 transition-all hover:bg-white/15 hover:text-white active:scale-90 group-hover:opacity-100 sm:opacity-0"
-                    >
-                      <Info size={14} />
-                    </button>
-                  </div>
-                )
-              })}
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                sfx.click()
-                setActiveSystems([])
-              }}
-              className="mt-3 w-full rounded-xl bg-white/5 px-3 py-2 text-xs text-white/60 hover:bg-white/10"
-            >
-              Ocultar todos
-            </button>
-          </div>
-        </motion.div>
+      {/* Systems floating panel — FAB that expands into full sidebar */}
+      <div className="pointer-events-none absolute left-0 top-0 z-30 flex flex-col items-start gap-2 pl-2 pt-16 md:pl-3" style={{ paddingTop: 'max(4rem, env(safe-area-inset-top))' }}>
 
-        {/* Toggle button — outside the animated div so it stays visible */}
-        <button
-          type="button"
-          aria-label={panelOpen ? 'Ocultar panel' : 'Mostrar panel'}
-          onClick={() => {
-            sfx.click()
-            setPanelOpen((v) => !v)
-          }}
-          className="pointer-events-auto absolute left-2 top-4 grid h-9 w-9 place-items-center rounded-full bg-bio-500 text-black shadow-glow active:scale-95 md:left-3"
-        >
-          <motion.div animate={{ rotate: panelOpen ? 180 : 0 }}>
-            <ChevronRight size={18} />
-          </motion.div>
-        </button>
+        {/* Collapsed: floating pill button */}
+        <AnimatePresence mode="wait">
+          {!panelOpen && (
+            <motion.button
+              key="fab"
+              type="button"
+              aria-label="Mostrar sistemas"
+              initial={{ scale: 0.6, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.6, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+              onClick={() => {
+                sfx.select()
+                setPanelOpen(true)
+              }}
+              className="pointer-events-auto flex items-center gap-2 rounded-full bg-bio-500 px-3 py-2.5 text-black shadow-glow active:scale-95"
+            >
+              <Layers size={18} />
+              {activeSystems.length > 0 && (
+                <span className="grid h-5 min-w-5 place-items-center rounded-full bg-black/25 px-1 text-xs font-bold">
+                  {activeSystems.length}
+                </span>
+              )}
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        {/* Expanded: full panel */}
+        <AnimatePresence mode="wait">
+          {panelOpen && (
+            <motion.div
+              key="panel"
+              initial={{ x: -20, scale: 0.95, opacity: 0 }}
+              animate={{ x: 0, scale: 1, opacity: 1 }}
+              exit={{ x: -20, scale: 0.95, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+              className="pointer-events-auto relative"
+            >
+              <div className="glass-strong w-56 rounded-2xl p-3 md:w-64 md:p-4">
+                {/* Header with close button */}
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-white/70">
+                    <Layers size={16} className="text-bio-300" /> Sistemas
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Cerrar panel"
+                    onClick={() => {
+                      sfx.click()
+                      setPanelOpen(false)
+                    }}
+                    className="grid h-7 w-7 place-items-center rounded-full bg-white/10 text-white/60 transition-colors hover:bg-white/20 hover:text-white active:scale-90"
+                  >
+                    <ChevronRight size={16} className="rotate-180" />
+                  </button>
+                </div>
+
+                <div className="flex max-h-[48vh] flex-col gap-1.5 overflow-y-auto pr-1 md:max-h-[52vh]">
+                  {SYSTEMS.map((s) => {
+                    const active = activeSystems.includes(s.id)
+                    return (
+                      <div
+                        key={s.id}
+                        className={`group flex items-center gap-1 rounded-xl pr-1 transition-all ${
+                          active ? 'bg-white/15 font-semibold' : 'text-white/60 hover:bg-white/8'
+                        }`}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => {
+                            sfx.click()
+                            toggleSystem(s.id)
+                          }}
+                          onMouseEnter={() => sfx.hover()}
+                          className="flex flex-1 items-center gap-3 rounded-xl px-2 py-2 text-left text-sm md:px-3"
+                        >
+                          <span
+                            className="h-3 w-3 shrink-0 rounded-full transition-all"
+                            style={{
+                              background: s.color,
+                              boxShadow: active ? `0 0 10px ${s.glow}` : 'none',
+                              opacity: active ? 1 : 0.4,
+                            }}
+                          />
+                          {s.shortName}
+                        </button>
+                        <button
+                          type="button"
+                          aria-label={`Detalles de ${s.name}`}
+                          onClick={() => {
+                            sfx.select()
+                            setDetailSystem(s.id)
+                          }}
+                          className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-white/40 transition-all hover:bg-white/15 hover:text-white active:scale-90 group-hover:opacity-100 sm:opacity-0"
+                        >
+                          <Info size={14} />
+                        </button>
+                      </div>
+                    )
+                  })}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    sfx.click()
+                    setActiveSystems([])
+                  }}
+                  className="mt-3 w-full rounded-xl bg-white/5 px-3 py-2 text-xs text-white/60 hover:bg-white/10"
+                >
+                  Ocultar todos
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Bottom controls */}
