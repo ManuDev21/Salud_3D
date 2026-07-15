@@ -133,21 +133,22 @@ export default function Explorer() {
               Ocultar todos
             </button>
           </div>
-
-          <button
-            type="button"
-            aria-label={panelOpen ? 'Ocultar panel' : 'Mostrar panel'}
-            onClick={() => {
-              sfx.click()
-              setPanelOpen((v) => !v)
-            }}
-            className="absolute -right-3 top-4 grid h-8 w-8 place-items-center rounded-full bg-bio-500 text-black shadow-glow active:scale-95"
-          >
-            <motion.div animate={{ rotate: panelOpen ? 180 : 0 }}>
-              <ChevronRight size={16} />
-            </motion.div>
-          </button>
         </motion.div>
+
+        {/* Toggle button — outside the animated div so it stays visible */}
+        <button
+          type="button"
+          aria-label={panelOpen ? 'Ocultar panel' : 'Mostrar panel'}
+          onClick={() => {
+            sfx.click()
+            setPanelOpen((v) => !v)
+          }}
+          className="pointer-events-auto absolute left-2 top-4 grid h-9 w-9 place-items-center rounded-full bg-bio-500 text-black shadow-glow active:scale-95 md:left-3"
+        >
+          <motion.div animate={{ rotate: panelOpen ? 180 : 0 }}>
+            <ChevronRight size={18} />
+          </motion.div>
+        </button>
       </div>
 
       {/* Bottom controls */}
