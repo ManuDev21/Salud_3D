@@ -18,7 +18,7 @@ export function SystemDetailPanel({ system, organs, onClose, onSelectOrgan, onIs
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] grid place-items-center bg-black/70 p-3 backdrop-blur-sm md:p-4"
       onClick={onClose}
     >
       <motion.div
@@ -27,10 +27,10 @@ export function SystemDetailPanel({ system, organs, onClose, onSelectOrgan, onIs
         exit={{ scale: 0.94, y: 24 }}
         transition={{ type: 'spring', stiffness: 260, damping: 28 }}
         onClick={(e) => e.stopPropagation()}
-        className="glass-strong relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl"
+        className="glass-strong relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl md:max-h-[85vh]"
       >
         {/* Header */}
-        <div className="relative shrink-0 overflow-hidden p-6" style={{ background: `${system.color}1f` }}>
+        <div className="relative shrink-0 overflow-hidden p-5 md:p-6" style={{ background: `${system.color}1f` }}>
           <div
             className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-40 blur-3xl"
             style={{ background: system.color }}
@@ -42,9 +42,9 @@ export function SystemDetailPanel({ system, organs, onClose, onSelectOrgan, onIs
               sfx.click()
               onClose()
             }}
-            className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white/80 hover:bg-white/20"
+            className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white/90 hover:bg-white/25 active:scale-95 md:right-4 md:top-4 md:h-9 md:w-9"
           >
-            <X size={18} />
+            <X size={20} />
           </button>
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white"
@@ -53,7 +53,7 @@ export function SystemDetailPanel({ system, organs, onClose, onSelectOrgan, onIs
             <span className="h-2 w-2 rounded-full" style={{ background: system.color }} />
             Sistema
           </span>
-          <h2 className="mt-3 text-3xl font-extrabold">{system.name}</h2>
+          <h2 className="mt-3 text-2xl font-extrabold md:text-3xl">{system.name}</h2>
           <p className="mt-2 max-w-xl text-sm text-white/75">{system.longDescription}</p>
 
           <div className="mt-4 flex flex-wrap gap-2">
@@ -75,7 +75,7 @@ export function SystemDetailPanel({ system, organs, onClose, onSelectOrgan, onIs
         </div>
 
         {/* Body */}
-        <div className="flex-1 space-y-6 overflow-y-auto p-6">
+        <div className="flex-1 space-y-5 overflow-y-auto p-5 md:space-y-6 md:p-6">
           <Section icon={Activity} title="¿Para qué sirve?">
             <ul className="grid gap-2 sm:grid-cols-2">
               {system.functions.map((f) => (

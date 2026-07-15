@@ -168,6 +168,34 @@ html[data-textscale='xl'] {
   font-size: 20px;
 }
 
+/* ===== Mobile UX improvements ===== */
+/* Prevent tap highlight flash on iOS */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection on UI buttons (iOS long-press) */
+button,
+a,
+[role='button'] {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+/* Ensure inputs and buttons are not zoomed on focus in iOS (>= 16px) */
+@media (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Prevent pull-to-refresh interfering with scrollable panels on mobile */
+.overscroll-contain {
+  overscroll-behavior: contain;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

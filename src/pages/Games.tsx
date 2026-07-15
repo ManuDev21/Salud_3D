@@ -30,7 +30,7 @@ export default function Games() {
   const [active, setActive] = useState<GameId | null>(null)
 
   return (
-    <PageTransition className="relative min-h-screen px-6 pb-20 pt-28">
+    <PageTransition className="relative min-h-screen px-4 pb-20 pt-24 sm:px-6 sm:pt-28">
       <div className="aurora-bg absolute inset-0 -z-10" />
       <div className="absolute inset-0 -z-10 opacity-30">
         <ParticleField density={50} color="rgba(168,85,247,0.6)" linkColor="rgba(168,85,247," />
@@ -41,13 +41,13 @@ export default function Games() {
           <span className="inline-block rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-bio-300">
             Aprende jugando
           </span>
-          <h1 className="mt-4 text-4xl font-extrabold sm:text-5xl">
+          <h1 className="mt-4 text-3xl font-extrabold sm:text-4xl md:text-5xl">
             Mini<span className="text-gradient">-juegos</span>
           </h1>
           <p className="mt-3 text-white/60">Pon a prueba tus conocimientos y gana experiencia (XP).</p>
         </motion.div>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
           {games.map((g, i) => {
             const Icon = g.icon
             return (
@@ -60,7 +60,7 @@ export default function Games() {
                 <GlassCard
                   hover={g.playable}
                   glow={g.playable ? g.color : undefined}
-                  className="relative h-full overflow-hidden p-6"
+                  className="relative h-full overflow-hidden p-5 sm:p-6"
                   onClick={
                     g.playable
                       ? () => {
@@ -110,7 +110,7 @@ export default function Games() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="glass-strong relative w-full max-w-lg rounded-3xl p-6"
+              className="glass-strong relative w-full max-w-lg rounded-3xl p-5 sm:p-6"
             >
               <button
                 type="button"

@@ -23,7 +23,7 @@ export default function GenderSelect() {
   }
 
   return (
-    <PageTransition className="relative grid min-h-screen place-items-center overflow-hidden px-6 pt-20">
+    <PageTransition className="relative grid min-h-screen place-items-center overflow-hidden px-4 pt-20 sm:px-6">
       <div className="aurora-bg absolute inset-0" />
       <div className="absolute inset-0 opacity-50">
         <ParticleField density={60} />
@@ -35,13 +35,13 @@ export default function GenderSelect() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-12 text-center"
         >
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+          <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl">
             Elige tu <span className="text-gradient">modelo 3D</span>
           </h1>
           <p className="mt-3 text-white/60">Podrás cambiarlo en cualquier momento durante la exploración.</p>
         </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
           {options.map((o, i) => {
             const Icon = o.icon
             return (
@@ -55,14 +55,14 @@ export default function GenderSelect() {
                 whileTap={{ scale: 0.98 }}
                 onClick={() => choose(o.id)}
                 onMouseEnter={() => sfx.hover()}
-                className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br ${o.from} ${o.to} p-10 text-left backdrop-blur-xl`}
+                className={`group relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br ${o.from} ${o.to} p-8 text-left backdrop-blur-xl sm:rounded-[2rem] sm:p-10`}
                 style={{ boxShadow: `0 0 50px ${o.glow}22` }}
               >
                 <div
-                  className="mb-6 grid h-24 w-24 place-items-center rounded-3xl text-white transition-transform duration-500 group-hover:scale-110"
+                  className="mb-5 grid h-20 w-20 place-items-center rounded-3xl text-white transition-transform duration-500 group-hover:scale-110 sm:mb-6 sm:h-24 sm:w-24"
                   style={{ background: `${o.glow}22`, boxShadow: `0 0 40px ${o.glow}44` }}
                 >
-                  <Icon size={52} strokeWidth={1.6} />
+                  <Icon size={44} strokeWidth={1.6} />
                 </div>
                 <h2 className="text-3xl font-extrabold">{o.label}</h2>
                 <p className="mt-2 text-white/60">Modelo anatómico detallado con todos los sistemas.</p>

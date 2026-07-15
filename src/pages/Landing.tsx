@@ -47,8 +47,8 @@ export default function Landing() {
       {/* HERO */}
       <section ref={ref} className="relative flex min-h-screen items-center justify-center overflow-hidden">
         <div className="aurora-bg absolute inset-0" />
-        <div className="absolute inset-0 opacity-70">
-          <ParticleField density={90} />
+        <div className="absolute inset-0 opacity-50 md:opacity-70">
+          <ParticleField density={60} />
         </div>
 
         {/* Floating orbs */}
@@ -81,7 +81,7 @@ export default function Landing() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
-            className="text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-7xl"
+            className="text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl"
           >
             Explora el <span className="text-gradient">cuerpo humano</span>
             <br /> en 3D interactivo
@@ -91,7 +91,7 @@ export default function Landing() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35, duration: 0.7 }}
-            className="mx-auto mt-6 max-w-2xl text-lg text-white/70"
+            className="mx-auto mt-6 max-w-2xl text-base text-white/70 sm:text-lg"
           >
             Una plataforma educativa de nueva generación. Desmonta, reconstruye y comprende cada
             estructura anatómica con animaciones cinematográficas y gamificación.
@@ -101,12 +101,12 @@ export default function Landing() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.7 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+            className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
           >
-            <Link to="/elegir" className="btn-primary text-base" onClick={() => sfx.select()}>
+            <Link to="/elegir" className="btn-primary text-sm sm:text-base" onClick={() => sfx.select()}>
               Comenzar exploración <ArrowRight size={18} />
             </Link>
-            <Link to="/juegos" className="btn-ghost text-base" onClick={() => sfx.click()}>
+            <Link to="/juegos" className="btn-ghost text-sm sm:text-base" onClick={() => sfx.click()}>
               <Gamepad2 size={18} /> Ver mini-juegos
             </Link>
           </motion.div>
@@ -115,7 +115,7 @@ export default function Landing() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
-            className="mt-14 flex items-center justify-center gap-8 text-center"
+            className="mt-10 flex items-center justify-center gap-6 text-center sm:gap-8"
           >
             {[
               { k: '15', v: 'Sistemas' },
@@ -142,7 +142,7 @@ export default function Landing() {
       </section>
 
       {/* FEATURES */}
-      <section className="relative mx-auto max-w-6xl px-6 py-24">
+      <section className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <SectionTitle
           badge="Características"
           title="Diseñada para enamorar y enseñar"
@@ -195,7 +195,7 @@ export default function Landing() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="relative mx-auto max-w-6xl px-6 py-24">
+      <section className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <SectionTitle
           badge="Cómo funciona"
           title="Aprender en 4 simples pasos"
@@ -227,18 +227,18 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="relative mx-auto max-w-5xl px-6 pb-32">
+      <section className="relative mx-auto max-w-5xl px-4 pb-20 sm:px-6 sm:pb-32">
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-bio-500/15 via-aurora-cyan/10 to-aurora-violet/15 p-12 text-center backdrop-blur-2xl"
+          className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-bio-500/15 via-aurora-cyan/10 to-aurora-violet/15 p-8 text-center backdrop-blur-2xl sm:rounded-[2rem] sm:p-12"
         >
           <div className="absolute inset-0 opacity-40">
             <ParticleField density={40} color="rgba(168,85,247,0.6)" linkColor="rgba(168,85,247," />
           </div>
           <div className="relative z-10">
-            <h2 className="text-3xl font-extrabold sm:text-5xl">
+            <h2 className="text-2xl font-extrabold sm:text-3xl md:text-5xl">
               ¿Listo para <span className="text-gradient">descubrir</span> tu cuerpo?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-white/70">

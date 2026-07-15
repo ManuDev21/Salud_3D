@@ -37,14 +37,20 @@ export function OrganPanel({ organ, onClose }: { organ: OrganInfo; onClose: () =
 
   return (
     <motion.aside
-      initial={{ x: '110%', opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: '110%', opacity: 0 }}
-      transition={{ type: 'spring', stiffness: 260, damping: 30 }}
-      className="glass-strong pointer-events-auto fixed right-0 top-0 z-40 flex h-full w-full max-w-md flex-col overflow-hidden rounded-l-3xl md:m-3 md:h-[calc(100%-1.5rem)] md:rounded-3xl"
+      initial={{ y: '100%', opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: '100%', opacity: 0 }}
+      transition={{ type: 'spring', stiffness: 280, damping: 32 }}
+      className="glass-strong pointer-events-auto fixed inset-x-0 bottom-0 z-[60] flex h-[88vh] w-full flex-col overflow-hidden rounded-t-3xl md:inset-auto md:right-0 md:top-0 md:h-full md:max-w-md md:rounded-l-3xl md:rounded-t-none md:m-3 md:h-[calc(100%-1.5rem)] md:rounded-3xl"
+      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
+      {/* Mobile drag handle */}
+      <div className="flex shrink-0 justify-center pt-2 md:hidden">
+        <div className="h-1.5 w-12 rounded-full bg-white/25" />
+      </div>
+
       {/* Header */}
-      <div className="relative shrink-0 overflow-hidden p-6" style={{ background: `${organ.color}18` }}>
+      <div className="relative shrink-0 overflow-hidden p-5 pt-3 md:p-6 md:pt-6" style={{ background: `${organ.color}18` }}>
         <div
           className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full opacity-40 blur-2xl"
           style={{ background: organ.color }}
@@ -56,9 +62,9 @@ export function OrganPanel({ organ, onClose }: { organ: OrganInfo; onClose: () =
             sfx.click()
             onClose()
           }}
-          className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white/80 transition-colors hover:bg-white/20"
+          className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white/90 transition-colors hover:bg-white/25 active:scale-95 md:right-4 md:top-4 md:h-9 md:w-9"
         >
-          <X size={18} />
+          <X size={20} />
         </button>
         <span
           className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold"
@@ -67,10 +73,10 @@ export function OrganPanel({ organ, onClose }: { organ: OrganInfo; onClose: () =
           <span className="h-2 w-2 rounded-full" style={{ background: organ.color }} />
           {system?.name}
         </span>
-        <h2 className="mt-3 text-3xl font-extrabold">{organ.name}</h2>
+        <h2 className="mt-2 text-2xl font-extrabold md:mt-3 md:text-3xl">{organ.name}</h2>
         <p className="italic text-white/60">{organ.scientificName}</p>
 
-        <div className="mt-4 grid grid-cols-3 gap-2">
+        <div className="mt-3 grid grid-cols-3 gap-1.5 md:mt-4 md:gap-2">
           <Stat icon={MapPin} label="Ubicación" value={organ.location} />
           <Stat icon={Ruler} label="Tamaño" value={organ.size} />
           <Stat icon={Weight} label="Peso" value={organ.weight} />
@@ -78,7 +84,7 @@ export function OrganPanel({ organ, onClose }: { organ: OrganInfo; onClose: () =
       </div>
 
       {/* Tabs */}
-      <div className="flex shrink-0 gap-1 border-b border-white/10 px-3 py-2">
+      <div className="flex shrink-0 gap-1 border-b border-white/10 px-2 py-2 md:px-3">
         {tabs.map((t) => {
           const Icon = t.icon
           const active = tab === t.id
@@ -90,7 +96,7 @@ export function OrganPanel({ organ, onClose }: { organ: OrganInfo; onClose: () =
                 sfx.hover()
                 setTab(t.id)
               }}
-              className={`flex flex-1 flex-col items-center gap-1 rounded-xl px-2 py-2 text-[11px] font-semibold transition-colors ${
+              className={`flex flex-1 flex-col items-center gap-1 rounded-xl px-1 py-2 text-[10px] font-semibold transition-colors md:px-2 md:text-[11px] ${
                 active ? 'bg-white/15 text-white' : 'text-white/50 hover:bg-white/10'
               }`}
             >
@@ -102,7 +108,7 @@ export function OrganPanel({ organ, onClose }: { organ: OrganInfo; onClose: () =
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto p-4 md:p-6">
         <AnimatePresence mode="wait">
           <motion.div
             key={tab}
@@ -125,10 +131,10 @@ export function OrganPanel({ organ, onClose }: { organ: OrganInfo; onClose: () =
 
 function Stat({ icon: Icon, label, value }: { icon: typeof MapPin; label: string; value: string }) {
   return (
-    <div className="rounded-xl bg-white/5 p-2.5">
-      <Icon size={14} className="mb-1 text-white/50" />
-      <div className="text-[10px] uppercase tracking-wide text-white/40">{label}</div>
-      <div className="text-xs font-semibold leading-tight">{value}</div>
+    <div className="rounded-xl bg-white/5 p-2 md:p-2.5">
+      <Icon size={13} className="mb-1 text-white/50 md:size-3.5" />
+      <div className="text-[9px] uppercase tracking-wide text-white/40 md:text-[10px]">{label}</div>
+      <div className="text-[11px] font-semibold leading-tight md:text-xs">{value}</div>
     </div>
   )
 }

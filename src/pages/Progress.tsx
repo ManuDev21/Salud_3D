@@ -48,7 +48,7 @@ export default function Progress() {
   ]
 
   return (
-    <PageTransition className="relative min-h-screen px-6 pb-20 pt-28">
+    <PageTransition className="relative min-h-screen px-4 pb-20 pt-24 sm:px-6 sm:pt-28">
       <div className="aurora-bg absolute inset-0 -z-10" />
       <div className="absolute inset-0 -z-10 opacity-30">
         <ParticleField density={45} />
@@ -57,7 +57,7 @@ export default function Progress() {
       <div className="mx-auto max-w-5xl">
         {/* Level card */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <GlassCard className="relative overflow-hidden p-8">
+          <GlassCard className="relative overflow-hidden p-5 sm:p-8">
             <div className="pointer-events-none absolute -right-10 -top-10 h-48 w-48 rounded-full bg-bio-500/20 blur-3xl" />
             <div className="relative flex flex-col items-center gap-6 sm:flex-row sm:items-center">
               <div className="relative grid h-28 w-28 shrink-0 place-items-center">
@@ -117,7 +117,7 @@ export default function Progress() {
         </motion.div>
 
         {/* Stats */}
-        <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {stats.map((s, i) => {
             const Icon = s.icon
             return (
@@ -127,8 +127,8 @@ export default function Progress() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + i * 0.06 }}
               >
-                <GlassCard className="p-5">
-                  <Icon size={22} style={{ color: s.color }} />
+                <GlassCard className="p-4 sm:p-5">
+                  <Icon size={20} style={{ color: s.color }} />
                   <div className="mt-3 text-2xl font-extrabold">{s.value}</div>
                   <div className="text-xs text-white/50">{s.label}</div>
                 </GlassCard>
@@ -138,10 +138,10 @@ export default function Progress() {
         </div>
 
         {/* Achievements */}
-        <h2 className="mb-4 mt-10 flex items-center gap-2 text-xl font-bold">
+        <h2 className="mb-4 mt-8 flex items-center gap-2 text-lg font-bold sm:mt-10 sm:text-xl">
           <Award size={20} className="text-bio-300" /> Insignias y logros
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {ACHIEVEMENTS.map((a, i) => {
             const Icon = iconMap[a.icon] ?? Award
             const isUnlocked = unlocked.includes(a.id)
@@ -152,9 +152,9 @@ export default function Progress() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.05 }}
               >
-                <GlassCard className={`flex items-center gap-4 p-4 ${isUnlocked ? '' : 'opacity-60'}`}>
+                <GlassCard className={`flex items-center gap-3 p-3 sm:gap-4 sm:p-4 ${isUnlocked ? '' : 'opacity-60'}`}>
                   <div
-                    className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl ${
+                    className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl sm:h-14 sm:w-14 ${
                       isUnlocked
                         ? 'bg-gradient-to-br from-bio-500 to-aurora-cyan text-black'
                         : 'bg-white/10 text-white/40'
